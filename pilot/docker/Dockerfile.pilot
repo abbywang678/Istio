@@ -15,12 +15,12 @@ FROM ${ISTIO_BASE_REGISTRY}/distroless:${BASE_VERSION} as distroless
 # hadolint ignore=DL3006
 FROM ${BASE_DISTRIBUTION:-debug}
 
-ARG TARGETARCH
-COPY ${TARGETARCH:-amd64}/pilot-discovery /usr/local/bin/pilot-discovery
+# ARG TARGETARCH
+COPY pilot-discovery /usr/local/bin/pilot-discovery
 
 # Copy templates for bootstrap generation.
-COPY envoy_bootstrap.json /var/lib/istio/envoy/envoy_bootstrap_tmpl.json
-COPY gcp_envoy_bootstrap.json /var/lib/istio/envoy/gcp_envoy_bootstrap_tmpl.json
+COPY tools/packaging/common/envoy_bootstrap.json /var/lib/istio/envoy/envoy_bootstrap_tmpl.json
+COPY tools/packaging/common/gcp_envoy_bootstrap.json /var/lib/istio/envoy/gcp_envoy_bootstrap_tmpl.json
 
 USER 1337:1337
 
